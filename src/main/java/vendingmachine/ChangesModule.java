@@ -1,7 +1,9 @@
 package vendingmachine;
 
+import java.util.List;
+
 public class ChangesModule {
-    private Change change = new Change();
+    private Change change = new Change(0);
 
     public void insertCoin(final Coin coin) {
         change.addAmount(coin.getAmount());
@@ -15,6 +17,13 @@ public class ChangesModule {
     public int getAmount(){
         return change.getAmount();
     }
+
+    public List<Coin> getCoins(){
+        List<Coin> coins = change.getCoins();
+        change = new Change(0);
+        return coins;
+    }
+
 
     private void isValidatePrice(final int amount) {
         if(amount >= change.getAmount()){
