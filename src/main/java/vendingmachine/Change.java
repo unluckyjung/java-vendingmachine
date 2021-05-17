@@ -6,4 +6,12 @@ public class Change {
     public void addAmount(final int amount){
         this.amount += amount;
     }
+
+    public void reduce(final int price) {
+        this.amount -= price;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
 }
