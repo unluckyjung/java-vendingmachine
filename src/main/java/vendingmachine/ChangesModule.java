@@ -6,6 +6,10 @@ public class ChangesModule {
 
     private Money money;
 
+    public ChangesModule() {
+        this(0);
+    }
+
     public ChangesModule(int money) {
         this(Money.from(money));
     }
@@ -14,17 +18,21 @@ public class ChangesModule {
         this.money = money;
     }
 
-    public int printCurrentMoney() {
+    public void insertCoins(Coin... coins) {
+        this.money = money.addAll(coins);
+    }
+
+    public int getCurrentMoney() {
         return money.getMoney();
     }
 
-    public void withdraw(Money money) {
+    public void subtractCurrentMoney(Money money) {
         this.money = this.money.subtract(money);
     }
 
-    public List<Coin> getChanges() {
+    public List<Coin> withdrawChanges() {
         final List<Coin> coins = money.toCoins();
-        withdraw(this.money);
+        subtractCurrentMoney(this.money);
         return coins;
     }
 }

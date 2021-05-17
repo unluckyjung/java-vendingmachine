@@ -1,6 +1,7 @@
 package vendingmachine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +17,11 @@ public class Money {
             throw new IllegalArgumentException("돈은 음수가 될 수 없습니다.");
         }
         return new Money(money);
+    }
+
+    public Money addAll(Coin... coins) {
+        final int sumOfCoins = Arrays.stream(coins).mapToInt(Coin::getValue).sum();
+        return new Money(money + sumOfCoins);
     }
 
     public int getMoney() {

@@ -17,10 +17,10 @@ public class ChangesModuleTest {
     void printSumOfCoinsTest() {
 
         // given
-        ChangesModule changesModule = new ChangesModule(Money.from(600));
+        ChangesModule changesModule = new ChangesModule(600);
 
         // when
-        final int money = changesModule.printCurrentMoney();
+        final int money = changesModule.getCurrentMoney();
 
         // then
         assertThat(money).isEqualTo(600);
@@ -31,15 +31,15 @@ public class ChangesModuleTest {
     void withdrawTest() {
 
         // given
-        final Money input = Money.from(600);
+        final int input = 600;
         final Money money = Money.from(350);
         ChangesModule changesModule = new ChangesModule(input);
 
         // when
-        changesModule.withdraw(money);
+        changesModule.subtractCurrentMoney(money);
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(250);
     }
 
@@ -48,11 +48,11 @@ public class ChangesModuleTest {
     void withdrawOverMoneyTest() {
 
         // given
-        final Money input = Money.from(600);
+        final int input = 600;
         final Money money = Money.from(650);
 
         // when
-        final ThrowableAssert.ThrowingCallable callable = () -> new ChangesModule(input).withdraw(money);
+        final ThrowableAssert.ThrowingCallable callable = () -> new ChangesModule(input).subtractCurrentMoney(money);
 
         // then
         assertThatIllegalArgumentException().isThrownBy(callable)
@@ -67,10 +67,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(10);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.TEN);
     }
@@ -83,10 +83,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(50);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.FIFTY);
     }
@@ -99,10 +99,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(1000);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.FIVE_HUNDRED, Coin.FIVE_HUNDRED);
     }
@@ -115,10 +115,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(20);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.TEN, Coin.TEN);
     }
@@ -131,10 +131,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(600);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.FIVE_HUNDRED, Coin.ONE_HUNDRED);
     }
@@ -147,10 +147,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(650);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.FIVE_HUNDRED, Coin.ONE_HUNDRED, Coin.FIFTY);
     }
@@ -163,10 +163,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(1);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).isEmpty();
     }
@@ -179,10 +179,10 @@ public class ChangesModuleTest {
         final ChangesModule changesModule = new ChangesModule(659);
 
         // when
-        final List<Coin> coins = changesModule.getChanges();
+        final List<Coin> coins = changesModule.withdrawChanges();
 
         // then
-        final int changes = changesModule.printCurrentMoney();
+        final int changes = changesModule.getCurrentMoney();
         assertThat(changes).isEqualTo(0);
         assertThat(coins).containsExactly(Coin.FIVE_HUNDRED, Coin.ONE_HUNDRED, Coin.FIFTY);
     }
