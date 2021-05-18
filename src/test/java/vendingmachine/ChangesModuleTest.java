@@ -48,6 +48,6 @@ class ChangesModuleTest {
         List<Coin> expectedCoins = Arrays.asList(new Coin(500), new Coin(100));
         //assertThat(changesModule.getCoins()).containsExactlyInAnyOrder(new Coin(500),  new Coin(100));
 
-        assertThat(changesModule.getCoins()).hasSize(expectedCoins.size()).hasSameElementsAs(expectedCoins);
+        assertThat(changesModule.getCoins()).hasSameSizeAs(expectedCoins).hasSameElementsAs(expectedCoins);
     }
 }
