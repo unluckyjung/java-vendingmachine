@@ -20,11 +20,22 @@ public class Products {
     }
 
     private void validateNameDuplication(final Product product) {
-        products.stream().filter(product1 -> product1.hasSameName(product))
-                .findAny().ifPresent(
-                product1 -> {
-                    throw new IllegalArgumentException("이미 존재하는 상품명 입니다.");
-                }
-        );
+        if (isExistName(product.getName())) {
+            throw new IllegalArgumentException("이미 존재하는 상품명 입니다.");
+        }
+    }
+
+    public void delete(final String name) {
+        validateDeleteName(name);
+    }
+
+    private void validateDeleteName(final String name) {
+        if (!isExistName(name)) {
+            throw new IllegalArgumentException("존재하지 않는 상품명 입니다.");
+        }
+    }
+
+    private boolean isExistName(final String name) {
+        return products.stream().anyMatch(product -> product.hasSameName(name));
     }
 }
