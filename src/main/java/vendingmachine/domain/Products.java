@@ -35,7 +35,18 @@ public class Products {
         }
     }
 
-    private boolean isExistName(final String name) {
+    public boolean isExistName(final String name) {
         return products.stream().anyMatch(product -> product.hasSameName(name));
+    }
+
+    public Product getProductByName(final String name) {
+        return products.stream()
+                .filter(product -> product.hasSameName(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("상품이 없습니다."));
+    }
+
+    public List<Product> toList() {
+        return products;
     }
 }

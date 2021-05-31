@@ -23,6 +23,10 @@ public class ChangeModule {
         change = new Change(change.getAmount() + coin.getValue());
     }
 
+    public void reduce(final int amount) {
+        change = new Change(change.getAmount() - amount);
+    }
+
     public List<CoinSet> withDrawToCoins() {
         List<CoinSet> coins = new ArrayList<>();
         for (CoinSet coin : CoinSet.descendingOrder()) {
