@@ -21,15 +21,15 @@ public class CoinSetTest {
         );
     }
 
-    @ParameterizedTest
     @DisplayName("CoinSet 으로부터 존재하는 코인이 나오는지 확인한다.")
+    @ParameterizedTest
     @MethodSource
     void getCoinValueTest(final int coinValue, final CoinSet coin) {
         assertThat(CoinSet.getCoin(coinValue)).isEqualTo(coin);
     }
 
-    @ParameterizedTest
     @DisplayName("잘못된 값으로 코인을 받아오려 하면, 예외가 발생한다.")
+    @ParameterizedTest
     @ValueSource(ints = {5, 7, 13})
     void inValidCoinTest(int coinValue) {
         assertThatThrownBy(() -> {
