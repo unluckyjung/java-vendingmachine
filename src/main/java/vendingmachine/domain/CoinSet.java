@@ -17,4 +17,8 @@ public enum CoinSet {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 코인입니다."));
     }
+
+    public int getValue() {
+        return value;
+    }
 }
