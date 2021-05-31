@@ -4,9 +4,11 @@ import java.util.List;
 
 public class VendingMachine {
     private final ChangeModule changeModule;
+    private final Products products;
 
-    public VendingMachine(final ChangeModule changeModule) {
+    public VendingMachine(final ChangeModule changeModule, final Products products) {
         this.changeModule = changeModule;
+        this.products = products;
     }
 
     public void insertCoin(final CoinSet coin) {
@@ -19,5 +21,13 @@ public class VendingMachine {
 
     public List<CoinSet> withDrawToCoins() {
         return changeModule.withDrawToCoins();
+    }
+
+    public void addProduct(final Product product) {
+        products.add(product);
+    }
+
+    public void deleteProductByName(final String productName) {
+        products.delete(productName);
     }
 }
