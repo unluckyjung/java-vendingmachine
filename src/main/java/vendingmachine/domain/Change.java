@@ -25,6 +25,11 @@ public class Change {
         return new Change(amount - deductAmount);
     }
 
+
+    public Change increase(final int increaseAmount) {
+        return new Change(amount + increaseAmount);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

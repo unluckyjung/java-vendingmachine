@@ -35,10 +35,17 @@ public class ChangeTest {
         assertThat(change.getAmount()).isEqualTo(amount);
     }
 
-    @DisplayName("잔돈의 금액을 차감하면, 남은 금액이 차감된다.")
+    @DisplayName("잔돈의 금액을 차감하면, 금액이 차감된다.")
     @ParameterizedTest
     @ValueSource(ints = {10, 49, 50, 111})
     void deductChange(final int deductAmount) {
         assertThat(change.reduce(deductAmount)).isEqualTo(new Change(DEFAULT_VALUE - deductAmount));
+    }
+
+    @DisplayName("잔돈의 금액을 증액하면, 금액이 증가한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {10, 49, 50, 111})
+    void increaseChange(final int increaseAmount) {
+        assertThat(change.increase(increaseAmount)).isEqualTo(new Change(DEFAULT_VALUE + increaseAmount));
     }
 }
