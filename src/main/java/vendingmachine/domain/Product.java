@@ -16,6 +16,10 @@ public class Product {
         }
     }
 
+    public boolean hasSameName(final Product product) {
+        return name.equals(product.getName());
+    }
+
     public String getName() {
         return name;
     }
