@@ -14,4 +14,8 @@ public class Change {
             throw new IllegalArgumentException("잔돈은 음수가 될 수 없습니다.");
         }
     }
+
+    public int getAmount() {
+        return amount;
+    }
 }
