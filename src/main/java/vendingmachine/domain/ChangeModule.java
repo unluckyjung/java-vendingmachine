@@ -1,8 +1,10 @@
 package vendingmachine.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChangeModule {
     private static final int DEFAULT_AMOUNT = 0;
-
     private Change change;
 
     public ChangeModule(final Change change) {
@@ -19,5 +21,20 @@ public class ChangeModule {
 
     public void inputCoin(final CoinSet coin) {
         change = new Change(change.getAmount() + coin.getValue());
+    }
+
+    public List<CoinSet> withDrawToCoins() {
+        List<CoinSet> coins = new ArrayList<>();
+        for (CoinSet coin : CoinSet.descendingOrder()) {
+            divideAmountByCoin(coins, coin);
+        }
+        return coins;
+    }
+
+    private void divideAmountByCoin(final List<CoinSet> coins, final CoinSet coin) {
+        for (int i = 0; i < getAmount() / coin.getValue(); ++i) {
+            coins.add(coin);
+        }
+        change = new Change(change.getAmount() % coin.getValue());
     }
 }
