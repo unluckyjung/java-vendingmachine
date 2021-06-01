@@ -1,5 +1,7 @@
 package vendingmachine;
 
+import java.util.List;
+
 public class VendingMachine {
 
     private final Products products;
@@ -18,6 +20,14 @@ public class VendingMachine {
         this.changesModule = changesModule;
     }
 
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public void removeProduct(String productName) {
+        products.remove(productName);
+    }
+
     public void insertCoins(Coin... coins) {
         changesModule.insertCoins(coins);
     }
@@ -30,5 +40,9 @@ public class VendingMachine {
 
     public int getCurrentMoney() {
         return changesModule.getCurrentMoney();
+    }
+
+    public List<Coin> returnChanges() {
+        return changesModule.returnChanges();
     }
 }
