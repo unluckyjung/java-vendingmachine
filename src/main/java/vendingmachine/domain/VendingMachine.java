@@ -6,6 +6,7 @@ public class VendingMachine {
     private final ChangeModule changeModule;
     private final Products purchasedProducts;
     private final Products products;
+    private boolean isRunning;
 
     public VendingMachine(final ChangeModule changeModule, final Products products, final Products purchasedProducts) {
         this.changeModule = changeModule;
@@ -17,6 +18,11 @@ public class VendingMachine {
         this(changeModule, products, new Products());
     }
 
+    public VendingMachine() {
+        this(new ChangeModule(), new Products(), new Products());
+        isRunning = true;
+    }
+
     public void insertCoin(final CoinSet coin) {
         changeModule.inputCoin(coin);
     }
@@ -26,6 +32,7 @@ public class VendingMachine {
     }
 
     public List<CoinSet> withDrawToCoins() {
+        isRunning = false;
         return changeModule.withDrawToCoins();
     }
 
@@ -52,5 +59,17 @@ public class VendingMachine {
 
     public List<Product> getPurchasedProducts() {
         return purchasedProducts.toList();
+    }
+
+    public List<Product> getProducts() {
+        return products.toList();
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void stop() {
+        isRunning = false;
     }
 }
