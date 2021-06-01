@@ -35,6 +35,30 @@ public class ChangeModule {
         return coins;
     }
 
+    public List<CoinSet> withDrawToCoins(final Coins hasCoins) {
+        List<CoinSet> coins = new ArrayList<>();
+        for (CoinSet coin : hasCoins.toListDescendingOrder()) {
+            getCoinsByHasCoins(coins, coin);
+        }
+        getCoinsBy10ValueCoin(coins);
+        return coins;
+    }
+
+    private void getCoinsBy10ValueCoin(final List<CoinSet> coins) {
+        for (int i = 0; i < getAmount() / CoinSet._10.getValue(); ++i) {
+            coins.add(CoinSet._10);
+        }
+        change = new Change(change.getAmount() % CoinSet._10.getValue());
+    }
+
+    private void getCoinsByHasCoins(final List<CoinSet> coins, final CoinSet coin) {
+        if (coin.getValue() > change.getAmount()) {
+            return;
+        }
+        change = new Change(change.getAmount() - coin.getValue());
+        coins.add(coin);
+    }
+
     private void divideAmountByCoin(final List<CoinSet> coins, final CoinSet coin) {
         for (int i = 0; i < getAmount() / coin.getValue(); ++i) {
             coins.add(coin);

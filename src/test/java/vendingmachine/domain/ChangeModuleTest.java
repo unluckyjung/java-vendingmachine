@@ -31,7 +31,7 @@ public class ChangeModuleTest {
 
     @DisplayName("1원단위가 남아 있다면 10원 동전 2개를 돌려준다.")
     @ParameterizedTest
-    @ValueSource(ints = {1,2,3,4,5,6,7,8,9})
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9})
     void withDraw1(final int value) {
         Change change = new Change(value);
         ChangeModule changeModule = new ChangeModule(change);
@@ -115,6 +115,30 @@ public class ChangeModuleTest {
         List<CoinSet> expectedCoins = Arrays.asList(CoinSet._500, CoinSet._100, CoinSet._50);
 
         List<CoinSet> returnedCoins = changeModule.withDrawToCoins();
+        assertThat(expectedCoins).usingRecursiveComparison().isEqualTo(returnedCoins);
+    }
+
+    @DisplayName("자판기가 보유한 동전의 개수에 맞춰서, 동전을 반환한다.")
+    @Test
+    void withDraw1770() {
+        Change change = new Change(1770);
+        ChangeModule changeModule = new ChangeModule(change);
+
+        // 1750원
+        Coins coins = new Coins(Arrays.asList(
+                CoinSet._500, CoinSet._500,
+                CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100,
+                CoinSet._50
+        ));
+
+        List<CoinSet> expectedCoins = Arrays.asList(
+                CoinSet._500, CoinSet._500,
+                CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100, CoinSet._100,
+                CoinSet._50,
+                CoinSet._10, CoinSet._10
+        );
+
+        List<CoinSet> returnedCoins = changeModule.withDrawToCoins(coins);
         assertThat(expectedCoins).usingRecursiveComparison().isEqualTo(returnedCoins);
     }
 }
