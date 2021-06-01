@@ -1,5 +1,6 @@
 package vendingmachine;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,14 +13,26 @@ public class Products {
     }
 
     public Products(List<Product> products) {
-        this.products = products;
-    }
-
-    public boolean canBuyAnything(int money) {
-        return products.stream().anyMatch(product -> product.getPrice() <= money);
+        this.products = new ArrayList<>(products);
     }
 
     public List<Product> getProducts() {
-        return products;
+        return new ArrayList<>(products);
+    }
+
+    public void add(Product product) {
+        products.add(product);
+    }
+
+    public void remove(String name) {
+        Product product = findByName(name);
+        products.remove(product);
+    }
+
+    public Product findByName(String name) {
+        return products.stream()
+                       .filter(product -> product.isNameEqualsTo(name))
+                       .findAny()
+                       .orElseThrow(() -> new IllegalArgumentException("자판기에 등록되지 않은 상품 이름입니다."));
     }
 }
