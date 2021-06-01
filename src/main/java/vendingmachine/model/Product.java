@@ -1,4 +1,4 @@
-package vendingmachine;
+package vendingmachine.model;
 
 public class Product {
     private final String name;
