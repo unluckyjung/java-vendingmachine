@@ -20,7 +20,10 @@ public class Money {
     }
 
     public Money addAll(Coin... coins) {
-        final int sumOfCoins = Arrays.stream(coins).mapToInt(Coin::getValue).sum();
+        final int sumOfCoins = Arrays.stream(coins)
+                                     .mapToInt(Coin::getValue)
+                                     .sum();
+
         return new Money(money + sumOfCoins);
     }
 
@@ -31,7 +34,7 @@ public class Money {
     public Money subtract(Money money) {
         final int changes = this.money - money.money;
         if (changes < 0) {
-            throw new IllegalArgumentException("차감하려는 금액이 입금 금액보다 큽니다.");
+            throw new IllegalArgumentException("차감하려는 금액이 현재 입금 금액보다 큽니다.");
         }
 
         return new Money(changes);
