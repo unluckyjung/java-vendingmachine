@@ -1,6 +1,7 @@
 package vendingmachine.controller;
 
 import vendingmachine.domain.CoinSet;
+import vendingmachine.domain.CommandNumberSet;
 import vendingmachine.domain.Product;
 import vendingmachine.domain.VendingMachine;
 import vendingmachine.view.InputView;
@@ -24,16 +25,16 @@ public class VendingMachineController {
 
     private void modeSelect() {
         int modeNumber = getModeNumber();
-        if (modeNumber == 1) {
+        if (modeNumber == CommandNumberSet.ADMIN_MODE_NUMBER.getValue()) {
             adminMode();
         }
-        if (modeNumber == 2) {
+        if (modeNumber == CommandNumberSet.CUSTOM_MODE_NUMBER.getValue()) {
             customerMode();
         }
     }
 
     private int getModeNumber() {
-        int modeNumber = 0;
+        int modeNumber = CommandNumberSet.DEFAULT_NUMBER.getValue();
         try {
             modeNumber = InputView.getModeNumber();
         } catch (IllegalArgumentException e) {
@@ -43,16 +44,16 @@ public class VendingMachineController {
     }
 
     private void adminMode() {
-        int productCustomNumber = 0;
+        int productCustomNumber = CommandNumberSet.DEFAULT_NUMBER.getValue();
         try {
             productCustomNumber = getProductCustomNumber();
         } catch (IllegalArgumentException e) {
             OutputView.printWrongInputError(e.getMessage());
         }
-        if (productCustomNumber == 1) {
+        if (productCustomNumber == CommandNumberSet.PRODUCT_ADD_NUMBER.getValue()) {
             productAdd();
         }
-        if (productCustomNumber == 2) {
+        if (productCustomNumber == CommandNumberSet.PRODUCT_DELETE_NUMBER.getValue()) {
             productDelete();
         }
         OutputView.printProducts(vendingMachine.getProducts());
@@ -78,7 +79,7 @@ public class VendingMachineController {
     }
 
     private int getProductCustomNumber() {
-        int productCustomNumber = 0;
+        int productCustomNumber = CommandNumberSet.DEFAULT_NUMBER.getValue();
         try {
             productCustomNumber = InputView.getProductCustomNumber();
         } catch (IllegalArgumentException e) {
@@ -88,20 +89,20 @@ public class VendingMachineController {
     }
 
     private void customerMode() {
-        int customerSelectNumber = 0;
+        int customerSelectNumber = CommandNumberSet.DEFAULT_NUMBER.getValue();
         OutputView.printAmount(vendingMachine.getAmount());
         try {
             customerSelectNumber = getCustomerSelectNumber();
         } catch (IllegalArgumentException e) {
             OutputView.printWrongInputError(e.getMessage());
         }
-        if (customerSelectNumber == 1) {
+        if (customerSelectNumber == CommandNumberSet.PRODUCT_BUY_NUMBER.getValue()) {
             productBuy();
         }
-        if (customerSelectNumber == 2) {
+        if (customerSelectNumber == CommandNumberSet.WITH_DRAW_NUMBER.getValue()) {
             withDraw();
         }
-        if (customerSelectNumber == 3) {
+        if (customerSelectNumber == CommandNumberSet.INSERT_COIN_NUMBER.getValue()) {
             insertCoin();
         }
     }
@@ -138,7 +139,7 @@ public class VendingMachineController {
     }
 
     private int getCustomerSelectNumber() {
-        int customerSelectNumber = 0;
+        int customerSelectNumber = CommandNumberSet.DEFAULT_NUMBER.getValue();
         try {
             customerSelectNumber = InputView.getCustomerSelectNumber();
         } catch (IllegalArgumentException e) {
