@@ -30,7 +30,7 @@ public class ChangesModule {
         this.money = this.money.subtract(money);
     }
 
-    public List<Coin> withdrawChanges() {
+    public List<Coin> returnChanges() {
         final List<Coin> coins = money.toCoins();
         subtractCurrentMoney(this.money);
         return coins;

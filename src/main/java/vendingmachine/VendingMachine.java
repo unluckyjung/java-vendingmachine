@@ -5,6 +5,10 @@ public class VendingMachine {
     private final Products products;
     private final ChangesModule changesModule;
 
+    public VendingMachine() {
+        this(new Products());
+    }
+
     public VendingMachine(Products products) {
         this(products, new ChangesModule());
     }
@@ -18,17 +22,10 @@ public class VendingMachine {
         changesModule.insertCoins(coins);
     }
 
-    public BuyResult buy(String productName) {
-        final Product product = Product.valueOf(productName);
-        changesModule.subtractCurrentMoney(Money.from(product.getPrice()));
-        if (!canBuyAnything()) {
-            return new BuyResult(product, changesModule.withdrawChanges());
-        }
-        return new BuyResult(product);
-    }
-
-    private boolean canBuyAnything() {
-        return products.canBuyAnything(changesModule.getCurrentMoney());
+    public Product buy(String productName) {
+        final Product product = products.findByName(productName);
+        changesModule.subtractCurrentMoney(product.getMoney());
+        return product;
     }
 
     public int getCurrentMoney() {
