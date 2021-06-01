@@ -71,7 +71,7 @@ public class MoneyTest {
 
         // then
         assertThatIllegalArgumentException().isThrownBy(callable)
-                                            .withMessage("차감하려는 금액이 입금 금액보다 큽니다.");
+                                            .withMessage("차감하려는 금액이 현재 입금 금액보다 큽니다.");
     }
 
     @DisplayName("잔돈 반환 성공 - 10원 반환")
