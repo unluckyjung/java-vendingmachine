@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class VendingMachineTest {
 
 
-
     @DisplayName("물품 구입")
     @Test
     void buyTest() {
