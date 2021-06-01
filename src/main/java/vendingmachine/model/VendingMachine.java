@@ -6,6 +6,8 @@ public class VendingMachine {
 
     private final Products products;
     private final ChangesModule changesModule;
+    private final Products purchasedProducts;
+    private boolean isRunning;
 
     public VendingMachine() {
         this(new Products());
@@ -16,8 +18,18 @@ public class VendingMachine {
     }
 
     public VendingMachine(Products products, ChangesModule changesModule) {
+        this(products, changesModule, new Products(), true);
+    }
+
+    public VendingMachine(Products products, ChangesModule changesModule, Products purchasedProducts, boolean isRunning) {
         this.products = products;
         this.changesModule = changesModule;
+        this.purchasedProducts = purchasedProducts;
+        this.isRunning = isRunning;
+    }
+
+    public Products getPurchasedProducts() {
+        return purchasedProducts;
     }
 
     public void addProduct(Product product) {
@@ -28,21 +40,29 @@ public class VendingMachine {
         products.remove(productName);
     }
 
+    public void insertCoins(List<Coin> coins) {
+        changesModule.insertCoins(coins.toArray(new Coin[0]));
+    }
+
     public void insertCoins(Coin... coins) {
         changesModule.insertCoins(coins);
     }
 
-    public Product buy(String productName) {
+    public void buy(String productName) {
         final Product product = products.findByName(productName);
         changesModule.subtractCurrentMoney(product.getMoney());
-        return product;
-    }
-
-    public int getCurrentMoney() {
-        return changesModule.getCurrentMoney();
+        purchasedProducts.add(product);
     }
 
     public List<Coin> returnChanges() {
         return changesModule.returnChanges();
+    }
+
+    public void end() {
+        isRunning = false;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
     }
 }

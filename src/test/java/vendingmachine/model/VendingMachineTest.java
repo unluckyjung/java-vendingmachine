@@ -22,9 +22,9 @@ public class VendingMachineTest {
         vendingMachine.insertCoins(Coin.FIVE_HUNDRED, Coin.FIVE_HUNDRED, Coin.FIVE_HUNDRED);
 
         // when
-        final Product boughtProduct = vendingMachine.buy("콜라");
+        vendingMachine.buy("콜라");
 
         // then
-        assertThat(콜라).isEqualTo(boughtProduct);
+        assertThat(vendingMachine.getPurchasedProducts().getProducts()).containsExactly(콜라);
     }
 }
