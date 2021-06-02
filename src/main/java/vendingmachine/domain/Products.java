@@ -27,6 +27,7 @@ public class Products {
 
     public void delete(final String name) {
         validateDeleteName(name);
+        products.removeIf(product -> product.hasSameName(name));
     }
 
     private void validateDeleteName(final String name) {
