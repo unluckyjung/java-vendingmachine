@@ -3,6 +3,7 @@ package vendingmachine.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class ChangesModule {
 
@@ -17,6 +18,10 @@ public class ChangesModule {
         this(Money.from(money), new CoinBox());
     }
 
+    public ChangesModule(CoinBox coinBox) {
+        this(0, coinBox);
+    }
+
     public ChangesModule(int money, CoinBox coinBox) {
         this(Money.from(money), coinBox);
     }
@@ -28,6 +33,7 @@ public class ChangesModule {
 
     public void insertCoins(Coin... coins) {
         this.money = money.addAll(coins);
+        coinBox.addCoins(coins);
     }
 
     public int getCurrentMoney() {
@@ -66,5 +72,9 @@ public class ChangesModule {
 
         coinBox.reduceCoinCount(coin, savedCoinCount - needCoinCount);
         return Collections.nCopies(needCoinCount, coin);
+    }
+
+    public Map<Coin, Integer> getCoinCounts() {
+        return coinBox.getCoinCount();
     }
 }
