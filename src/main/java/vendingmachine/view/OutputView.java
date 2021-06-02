@@ -18,17 +18,32 @@ public class OutputView {
                                                                 .stream()
                                                                 .collect(groupingBy(Product::getName, counting()));
 
-        List<String> products = new ArrayList<>();
-        for (Map.Entry<String, Long> entry : purchaseProductMap.entrySet()) {
-            products.add(String.format("%s %d개", entry.getKey(), entry.getValue()));
+        if (purchaseProductMap.isEmpty()) {
+            System.out.println("구입한 상품이 없습니다.");
+            return;
         }
 
-        System.out.printf("\n구입한 상품들은 %s 입니다.", String.join(", ", products));
-
+        System.out.println("\n구입한 상품들은");
+        for (Map.Entry<String, Long> entry : purchaseProductMap.entrySet()) {
+            System.out.printf("%s - %d개\n", entry.getKey(), entry.getValue());
+        }
+        System.out.println("입니다.");
     }
 
     public static void printChanges(List<Coin> changes) {
-        System.out.printf("\n남은 잔돈은 %s 입니다.", changes);
+        Map<Integer, Long> coinCountMap = changes.stream()
+                                                 .collect(groupingBy(Coin::getValue, counting()));
+
+        if (coinCountMap.isEmpty()) {
+            System.out.println("남은 잔돈은 0원니다.");
+            return;
+        }
+
+        System.out.println("\n남은 잔돈은");
+        for (Map.Entry<Integer, Long> entry : coinCountMap.entrySet()) {
+            System.out.printf("%d원 - %d개\n", entry.getKey(), entry.getValue());
+        }
+        System.out.println("입니다.");
     }
 
     public static void printCurrentProducts(List<Product> currentProducts) {
