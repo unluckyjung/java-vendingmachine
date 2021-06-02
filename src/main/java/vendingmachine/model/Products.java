@@ -3,6 +3,7 @@ package vendingmachine.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class Products {
 
@@ -21,6 +22,10 @@ public class Products {
     }
 
     public void add(Product product) {
+        if (findOptionalProductByName(product.getName()).isPresent()) {
+            throw new IllegalArgumentException("이미 자판기에 등록되어 있는 상품입니다.");
+        }
+
         products.add(product);
     }
 
@@ -30,9 +35,13 @@ public class Products {
     }
 
     public Product findByName(String name) {
+        return findOptionalProductByName(name)
+                       .orElseThrow(() -> new IllegalArgumentException("자판기에 등록되지 않은 상품 이름입니다."));
+    }
+
+    private Optional<Product> findOptionalProductByName(String name) {
         return products.stream()
                        .filter(product -> product.isNameEqualsTo(name))
-                       .findAny()
-                       .orElseThrow(() -> new IllegalArgumentException("자판기에 등록되지 않은 상품 이름입니다."));
+                       .findAny();
     }
 }
