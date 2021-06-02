@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import vendingmachine.model.VendingMachine;
 import vendingmachine.view.InputView;
+import vendingmachine.view.OutputView;
 
 public enum MainController {
     ADMINISTRATOR_MODE(1, AdministratorController::control),
@@ -22,6 +23,7 @@ public enum MainController {
     }
 
     public static void control(VendingMachine vendingMachine) {
+        OutputView.printCurrentProducts(vendingMachine.getCurrentProducts());
         final int functionNumber = InputView.inputFromMainView();
         final MainController function = findFunction(functionNumber);
         function.vendingMachineConsumer.accept(vendingMachine);

@@ -32,6 +32,10 @@ public class VendingMachine {
         return purchasedProducts;
     }
 
+    public List<Product> getCurrentProducts() {
+        return products.getProducts();
+    }
+
     public void addProduct(Product product) {
         products.add(product);
     }

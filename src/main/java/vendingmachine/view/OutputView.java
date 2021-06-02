@@ -30,4 +30,12 @@ public class OutputView {
     public static void printChanges(List<Coin> changes) {
         System.out.printf("남은 잔돈은 %s 입니다.", changes);
     }
+
+    public static void printCurrentProducts(List<Product> currentProducts) {
+        System.out.println("# 자판기 상품 목록");
+        for (Product product : currentProducts) {
+            System.out.printf("%s - %d 원", product.getName(), product.getMoney().getMoney());
+        }
+        System.out.println();
+    }
 }
