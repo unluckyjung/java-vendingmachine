@@ -32,9 +32,9 @@ public class OutputView {
     }
 
     public static void printCurrentProducts(List<Product> currentProducts) {
-        System.out.println("# 자판기 상품 목록");
+        System.out.println("\n# 자판기 상품 목록");
         for (Product product : currentProducts) {
-            System.out.printf("%s - %d 원", product.getName(), product.getMoney().getMoney());
+            System.out.printf("%s - %d 원\n", product.getName(), product.getMoney().getMoney());
         }
         System.out.println();
     }

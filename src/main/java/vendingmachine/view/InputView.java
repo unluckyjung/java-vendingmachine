@@ -8,11 +8,11 @@ public class InputView {
     public static final String ADMINISTRATOR_VIEW = "\n관리자 화면\n===\n1. 상품 등록\n2. 상품 삭제\n3. 처음으로";
     public static final String CLIENT_VIEW = "\n사용자 화면\n===\n1. 입금\n2. 상품 구입\n3. 잔돈 반환\n4. 처음으로";
 
-    public static final String ADD_PRODUCT_VIEW = "등록할 상품의 이름과 가격을 입력해주세요.";
-    public static final String REMOVE_PRODUCT_VIEW = "삭제할 상품의 이름을 입력해주세요.";
+    public static final String ADD_PRODUCT_VIEW = "\n등록할 상품의 이름과 가격을 입력해주세요.";
+    public static final String REMOVE_PRODUCT_VIEW = "\n삭제할 상품의 이름을 입력해주세요.";
 
-    public static final String INSERT_MONEY_VIEW = "입금하실 금액을 입력해주세요.";
-    public static final String BUY_PRODUCT_VIEW = "구매할 상품의 이름을 입력해주세요.";
+    public static final String INSERT_MONEY_VIEW = "\n입금하실 금액을 입력해주세요.";
+    public static final String BUY_PRODUCT_VIEW = "\n구매할 상품의 이름을 입력해주세요.";
 
     public static String input(String message) {
         System.out.println(message);
