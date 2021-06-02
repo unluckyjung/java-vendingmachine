@@ -1,9 +1,6 @@
 package vendingmachine.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class Money {
     private final int money;
@@ -38,16 +35,5 @@ public class Money {
         }
 
         return new Money(changes);
-    }
-
-    public List<Coin> toCoins() {
-        List<Coin> coins = new ArrayList<>();
-        int amount = money;
-        for (Coin coin : Coin.descendingOrder()) {
-            final int count = amount / coin.getValue();
-            coins.addAll(Collections.nCopies(count, coin));
-            amount -= coin.getValue() * count;
-        }
-        return coins;
     }
 }
