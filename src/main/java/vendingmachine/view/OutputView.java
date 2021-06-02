@@ -1,16 +1,41 @@
 package vendingmachine.view;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import vendingmachine.model.ChangesModule;
 import vendingmachine.model.Coin;
 import vendingmachine.model.Product;
 import vendingmachine.model.Products;
 
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 public class OutputView {
+
+    public static void printCurrentProducts(List<Product> currentProducts) {
+        System.out.println("\n# 자판기 상품 목록");
+        for (Product product : currentProducts) {
+            System.out.printf("%s - %d 원\n", product.getName(), product.getMoney().getMoney());
+        }
+        System.out.println();
+    }
+
+    public static void printCurrentMoney(int currentMoney) {
+        System.out.printf("# 잔액\n%d원\n", currentMoney);
+    }
+
+    public static void printCoinCount(ChangesModule changesModule) {
+        System.out.println("\n# 자판기 안의 동전 개수");
+        for (Map.Entry<Coin, Integer> entry : changesModule.getCoinCounts().entrySet()) {
+            System.out.printf("%d원 - %d 개\n", entry.getKey().getValue(), entry.getValue());
+        }
+    }
+
+    public static void printBoughtProduct(String productName) {
+        System.out.printf("\n%s 구입에 성공했습니다!\n", productName);
+    }
 
     public static void printPurchasedProducts(Products purchasedProducts) {
         Map<String, Long> purchaseProductMap = purchasedProducts.getProducts()
@@ -38,26 +63,15 @@ public class OutputView {
             return;
         }
 
-        System.out.println("\n남은 잔돈은");
-        for (Map.Entry<Integer, Long> entry : coinCountMap.entrySet()) {
+        System.out.println("\n받은 거스름돈은");
+        final Set<Map.Entry<Integer, Long>> sortedEntrySet = coinCountMap.entrySet()
+                                                                         .stream()
+                                                                         .sorted(Map.Entry.comparingByKey())
+                                                                         .collect(toCollection(LinkedHashSet::new));
+
+        for (Map.Entry<Integer, Long> entry : sortedEntrySet) {
             System.out.printf("%d원 - %d개\n", entry.getKey(), entry.getValue());
         }
         System.out.println("입니다.");
-    }
-
-    public static void printCurrentProducts(List<Product> currentProducts) {
-        System.out.println("\n# 자판기 상품 목록");
-        for (Product product : currentProducts) {
-            System.out.printf("%s - %d 원\n", product.getName(), product.getMoney().getMoney());
-        }
-        System.out.println();
-    }
-
-    public static void printCurrentMoney(int currentMoney) {
-        System.out.printf("# 잔액\n%d원\n", currentMoney);
-    }
-
-    public static void printBoughtProduct(String productName) {
-        System.out.printf("\n%s 구입에 성공했습니다!\n", productName);
     }
 }
