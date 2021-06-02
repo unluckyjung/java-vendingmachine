@@ -36,6 +36,10 @@ public class VendingMachine {
         return products.getProducts();
     }
 
+    public ChangesModule getChangesModule() {
+        return changesModule;
+    }
+
     public void addProduct(Product product) {
         products.add(product);
     }

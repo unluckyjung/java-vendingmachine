@@ -24,6 +24,7 @@ public enum MainController {
 
     public static void control(VendingMachine vendingMachine) {
         OutputView.printCurrentProducts(vendingMachine.getCurrentProducts());
+        OutputView.printCurrentMoney(vendingMachine.getChangesModule().getCurrentMoney());
         final int functionNumber = InputView.inputFromMainView();
         final MainController function = findFunction(functionNumber);
         function.vendingMachineConsumer.accept(vendingMachine);

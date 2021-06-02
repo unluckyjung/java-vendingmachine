@@ -38,4 +38,8 @@ public class OutputView {
         }
         System.out.println();
     }
+
+    public static void printCurrentMoney(int currentMoney) {
+        System.out.printf("# 잔액\n%d원\n", currentMoney);
+    }
 }

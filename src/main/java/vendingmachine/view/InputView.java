@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class InputView {
     public static final Scanner SCANNER = new Scanner(System.in);
-    public static final String MAIN_VIEW = "메인 화면\n===\n1. 관리자 모드\n2. 사용자 모드\n3. 종료\n";
+    public static final String MAIN_VIEW = "\n메인 화면\n===\n1. 관리자 모드\n2. 사용자 모드\n3. 종료\n";
     public static final String ADMINISTRATOR_VIEW = "\n관리자 화면\n===\n1. 상품 등록\n2. 상품 삭제\n3. 처음으로";
     public static final String CLIENT_VIEW = "\n사용자 화면\n===\n1. 입금\n2. 상품 구입\n3. 잔돈 반환\n4. 처음으로";
 
