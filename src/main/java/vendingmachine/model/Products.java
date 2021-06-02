@@ -36,7 +36,7 @@ public class Products {
 
     public Product findByName(String name) {
         return findOptionalProductByName(name)
-                       .orElseThrow(() -> new IllegalArgumentException("자판기에 등록되지 않은 상품 이름입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("자판기에 등록되지 않은 상품 이름입니다."));
     }
 
     private Optional<Product> findOptionalProductByName(String name) {
