@@ -9,8 +9,8 @@ public class VendingMachine {
     private final ChangesModule changesModule;
     private boolean isRunning;
 
-    public VendingMachine() {
-        this(new Products());
+    public VendingMachine(ChangesModule changesModule) {
+        this(new Products(), changesModule);
     }
 
     public VendingMachine(Products products) {
@@ -49,7 +49,7 @@ public class VendingMachine {
     }
 
     public void insertCoins(List<Coin> coins) {
-        changesModule.insertCoins(coins.toArray(new Coin[0]));
+        insertCoins(coins.toArray(new Coin[0]));
     }
 
     public void insertCoins(Coin... coins) {
