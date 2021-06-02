@@ -5,8 +5,8 @@ import java.util.List;
 public class VendingMachine {
 
     private final Products products;
-    private final ChangesModule changesModule;
     private final Products purchasedProducts;
+    private final ChangesModule changesModule;
     private boolean isRunning;
 
     public VendingMachine() {
@@ -18,13 +18,13 @@ public class VendingMachine {
     }
 
     public VendingMachine(Products products, ChangesModule changesModule) {
-        this(products, changesModule, new Products(), true);
+        this(products, new Products(), changesModule, true);
     }
 
-    public VendingMachine(Products products, ChangesModule changesModule, Products purchasedProducts, boolean isRunning) {
+    public VendingMachine(Products products, Products purchasedProducts, ChangesModule changesModule, boolean isRunning) {
         this.products = products;
-        this.changesModule = changesModule;
         this.purchasedProducts = purchasedProducts;
+        this.changesModule = changesModule;
         this.isRunning = isRunning;
     }
 
