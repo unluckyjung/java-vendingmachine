@@ -23,12 +23,12 @@ public class OutputView {
             products.add(String.format("%s %d개", entry.getKey(), entry.getValue()));
         }
 
-        System.out.printf("구입한 상품들은 %s 입니다.", String.join(", ", products));
+        System.out.printf("\n구입한 상품들은 %s 입니다.", String.join(", ", products));
 
     }
 
     public static void printChanges(List<Coin> changes) {
-        System.out.printf("남은 잔돈은 %s 입니다.", changes);
+        System.out.printf("\n남은 잔돈은 %s 입니다.", changes);
     }
 
     public static void printCurrentProducts(List<Product> currentProducts) {
@@ -41,5 +41,9 @@ public class OutputView {
 
     public static void printCurrentMoney(int currentMoney) {
         System.out.printf("# 잔액\n%d원\n", currentMoney);
+    }
+
+    public static void printBoughtProduct(String productName) {
+        System.out.printf("\n%s 구입에 성공했습니다!\n", productName);
     }
 }

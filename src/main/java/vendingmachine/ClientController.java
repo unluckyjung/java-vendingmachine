@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import vendingmachine.model.Coin;
 import vendingmachine.model.VendingMachine;
 import vendingmachine.view.InputView;
+import vendingmachine.view.OutputView;
 
 public enum ClientController {
     INSERT_MONEY(1, vendingMachine -> {
@@ -17,6 +18,7 @@ public enum ClientController {
     BUY_PRODUCT(2, vendingMachine -> {
         final String productName = InputView.inputFromBuyProductView();
         vendingMachine.buy(productName);
+        OutputView.printBoughtProduct(productName);
     }),
 
     RETURN_CHANGES(3, VendingMachine::end),
