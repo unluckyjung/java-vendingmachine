@@ -3,13 +3,16 @@ package vendingmachine;
 import vendingmachine.model.*;
 import vendingmachine.view.OutputView;
 
+import java.util.Scanner;
+
 public class Application {
     public static void main(String[] args) {
         System.out.println("우테코 자판기 전원 ON!");
+        Scanner scanner = new Scanner(System.in);
 
         VendingMachine vendingMachine = vendingMachineWithDefaultProducts();
         while (vendingMachine.isRunning()) {
-            MainController.control(vendingMachine);
+            MainController.control(vendingMachine, scanner);
         }
 
         OutputView.printPurchasedProducts(vendingMachine.getPurchasedProducts());

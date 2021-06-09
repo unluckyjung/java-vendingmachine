@@ -14,36 +14,36 @@ public class InputView {
     public static final String INSERT_MONEY_VIEW = "\n입금하실 금액을 입력해주세요.";
     public static final String BUY_PRODUCT_VIEW = "\n구매할 상품의 이름을 입력해주세요.";
 
-    public static String input(String message) {
+    public static String input(String message, Scanner scanner) {
         System.out.println(message);
-        return SCANNER.nextLine();
+        return scanner.nextLine();
     }
 
-    public static int inputFromMainView() {
-        return Integer.parseInt(input(MAIN_VIEW));
+    public static int inputFromMainView(Scanner scanner) {
+        return Integer.parseInt(input(MAIN_VIEW, scanner));
     }
 
-    public static int inputFromAdministratorView() {
-        return Integer.parseInt(input(ADMINISTRATOR_VIEW));
+    public static int inputFromAdministratorView(Scanner scanner) {
+        return Integer.parseInt(input(ADMINISTRATOR_VIEW, scanner));
     }
 
-    public static int inputFromClientView() {
-        return Integer.parseInt(input(CLIENT_VIEW));
+    public static int inputFromClientView(Scanner scanner) {
+        return Integer.parseInt(input(CLIENT_VIEW, scanner));
     }
 
-    public static String inputFromAddProductView() {
-        return input(ADD_PRODUCT_VIEW);
+    public static String inputFromAddProductView(Scanner scanner) {
+        return input(ADD_PRODUCT_VIEW, scanner);
     }
 
-    public static String inputFromRemoveProductView() {
-        return input(REMOVE_PRODUCT_VIEW);
+    public static String inputFromRemoveProductView(Scanner scanner) {
+        return input(REMOVE_PRODUCT_VIEW, scanner);
     }
 
-    public static String inputFromBuyProductView() {
-        return input(BUY_PRODUCT_VIEW);
+    public static String inputFromBuyProductView(Scanner scanner) {
+        return input(BUY_PRODUCT_VIEW, scanner);
     }
 
-    public static String inputFromInsertMoneyView() {
-        return input(INSERT_MONEY_VIEW);
+    public static String inputFromInsertMoneyView(Scanner scanner) {
+        return input(INSERT_MONEY_VIEW, scanner);
     }
 }
