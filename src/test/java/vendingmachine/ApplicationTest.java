@@ -22,8 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 public class ApplicationTest {
     private static final Duration SIMPLE_TEST_TIMEOUT = Duration.ofSeconds(1L);
-    private static final Duration RANDOM_TEST_TIMEOUT = Duration.ofSeconds(10L);
-
     private static final String MAIN_EXIT_NUMBER = "3";
 
     private void subject(final String... args) {
@@ -257,6 +255,173 @@ public class ApplicationTest {
                 );
                 assertThat(captor.toString().trim()).contains(amount + "원");
             });
+        }
+
+        @DisplayName("돈이 모자른 상태에서 상품을 구입하면, 예외가 발생한다.")
+        @ParameterizedTest
+        @ValueSource(strings = {"콜라", "사이다"})
+        void 잘못된_상품_구매_가격_테스트(final String productName) {
+            assertSimpleTest(() -> {
+                assertThatThrownBy(() -> {
+                    subject(
+                            // 메인화면 (사용자 화면 선택)
+                            "2",
+                            // 사용자 화면 (상품구입 선택)
+                            "2",
+                            // 구매할 상품이름
+                            productName
+                    );
+                }).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("차감하려는 금액이 현재 입금 금액보다 큽니다.");
+            });
+        }
+
+        @DisplayName("존재하지 않는 상품을 구매하려하면, 예외가 발생한다.")
+        @ParameterizedTest
+        @ValueSource(strings = {"시드", "포츈"})
+        void 잘못된_상품_구매_이름_테스트(final String productName) {
+            assertSimpleTest(() -> {
+                assertThatThrownBy(() -> {
+                    subject(
+                            // 메인화면 (사용자 화면 선택)
+                            "2",
+                            // 사용자 화면 (상품구입 선택)
+                            "2",
+                            // 구매할 상품이름
+                            productName
+                    );
+                }).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("자판기에 등록되지 않은 상품 이름입니다.");
+            });
+        }
+
+        @DisplayName("적절한 돈을 입금한 뒤, 상품을 구매하면, 상품 구매에 성공한다.")
+        @ParameterizedTest
+        @CsvSource({"500,500,콜라"})
+        void 올바른_상품_구매_테스트(final String amount1, final String amount2, final String productName) {
+            assertSimpleTest(() -> {
+                subject(
+                        // 동전 삽입
+                        "2", "1", amount1,
+
+                        // 동전 삽입
+                        "2", "1", amount2,
+
+                        // 메인화면 (사용자 화면 선택)
+                        "2",
+                        // 사용자 화면 (입금 선택)
+                        "2",
+                        // 구매할 상품이름
+                        productName,
+
+                        // 종료
+                        MAIN_EXIT_NUMBER
+                );
+            });
+
+            assertThat(captor.toString().trim()).contains("콜라 구입에 성공했습니다!");
+        }
+
+        @DisplayName("적절한 돈을 입금한 뒤, 상품을 구매하면, 상품 구매에 성공한다.")
+        @ParameterizedTest
+        @CsvSource({"500,콜라"})
+        void 올바른_상품_2개_구매_테스트(final String coinAmount, final String productName) {
+            // 실패함.
+            // 이미 구매한 상품을 또 구매하려고하면, "이미 자판기에 등록되어 있는 상품입니다" 라는 예외가 발생
+            // 잘못된 예외로 파악 되어짐
+            assertSimpleTest(() -> {
+                subject(
+                        // 동전 삽입 x 4
+                        "2", "1", coinAmount,
+                        "2", "1", coinAmount,
+                        "2", "1", coinAmount,
+                        "2", "1", coinAmount,
+
+                        // 상품 구매 x 2
+                        "2", "2", productName,
+                        "2", "2", productName,
+
+                        // 종료
+                        MAIN_EXIT_NUMBER
+                );
+            });
+
+            assertThat(captor.toString().trim()).contains("콜라 구입에 성공했습니다!");
+        }
+
+        @DisplayName("상품을 추가하고, 추가한 상품을 2개 구입하면, 2개의 상품이 구매된다.")
+        @ParameterizedTest
+        @CsvSource({"500,500,시드,300"})
+        void 상품_추가_추가한_상품_구매(final String amount1, final String amount2, final String productName, final String productPrice) {
+            assertSimpleTest(() -> {
+                subject(
+                        // 상품 등록
+                        "1", "1", productName + " " + productPrice,
+
+                        // 동전 삽입
+                        "2", "1", amount1,
+                        // 동전 삽입
+                        "2", "1", amount2,
+
+                        // 상품 구매
+                        "2", "2", productName,
+
+                        // 종료
+                        MAIN_EXIT_NUMBER
+                );
+            });
+            assertThat(captor.toString().trim()).contains("시드 구입에 성공했습니다!");
+            assertThat(captor.toString().trim()).contains("시드 - 1개");
+        }
+
+        @DisplayName("상품을 추가하고, 추가한 상품을 2개 구입하면, 2개의 상품이 구매된다.")
+        @ParameterizedTest
+        @CsvSource({"500,500,시드,300"})
+        void 상품_추가_추가한_상품_2개_구매(final String amount1, final String amount2, final String productName, final String productPrice) {
+            // 실패함.
+            // 이미 구매한 상품을 또 구매하려고하면, "이미 자판기에 등록되어 있는 상품입니다" 라는 예외가 발생
+            // 잘못된 예외로 파악 되어짐
+            assertSimpleTest(() -> {
+                subject(
+                        // 상품 등록
+                        "1", "1", productName + " " + productPrice,
+
+                        // 동전 삽입
+                        "2", "1", amount1,
+                        // 동전 삽입
+                        "2", "1", amount2,
+
+                        // 상품 구매
+                        "2", "2", productName,
+                        "2", "2", productName,
+
+                        // 종료
+                        MAIN_EXIT_NUMBER
+                );
+            });
+            assertThat(captor.toString().trim()).contains("시드 구입에 성공했습니다!");
+            assertThat(captor.toString().trim()).contains("시드 - 2개");
+        }
+
+        @DisplayName("790원이 있을때 반환을 하면, 500원 1개, 100원 1개, 50원 1개, 10원 14개가 반환된다.")
+        @ParameterizedTest
+        @CsvSource({"500,500,시드,210"})
+        void 잔돈_반환(final String amount1, final String amount2, final String productName, final String productPrice) {
+            assertSimpleTest(() -> {
+                subject(
+                        // 상품 등록
+                        "1", "1", productName + " " + productPrice,
+
+                        // 동전 삽입 x2
+                        "2", "1", amount1,
+                        "2", "1", amount2,
+
+                        // 상품 구매
+                        "2", "2", productName,
+
+                        // 잔돈 반환
+                        "2", "3"
+                );
+            });
+            assertThat(captor.toString().trim()).contains("10원 - 14개" + "\n" + "50원 - 1개" + "\n" + "100원 - 1개" + "\n" + "500원 - 1개");
         }
     }
 
