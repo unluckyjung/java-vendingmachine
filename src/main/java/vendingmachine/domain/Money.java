@@ -24,6 +24,14 @@ public class Money {
         return new Money(amount + increaseAmount);
     }
 
+    public boolean isCanReduce(final int amount) {
+        return this.amount >= amount;
+    }
+
+    public boolean isZero() {
+        return amount == AMOUNT_LOW_LIMIT;
+    }
+
     public int getAmount() {
         return amount;
     }
