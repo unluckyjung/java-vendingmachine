@@ -42,4 +42,16 @@ public class Products {
     private boolean isExistName(final String name) {
         return products.stream().anyMatch(product -> product.hasSameName(name));
     }
+
+    public boolean isCanBuyAnything(final ChangeModule changeModule) {
+        return changeModule.amount() >= cheapestProductPrice();
+    }
+
+    private int cheapestProductPrice() {
+        int minPrice = Integer.MAX_VALUE;
+        for (Product product : products) {
+            minPrice = Math.min(minPrice, product.getPrice());
+        }
+        return minPrice;
+    }
 }
