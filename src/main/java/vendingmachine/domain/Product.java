@@ -1,0 +1,40 @@
+package vendingmachine.domain;
+
+public class Product {
+
+    private final String name;
+    private int quantity;
+    private final int price;
+
+    public Product(final String name, final int quantity, int price) {
+        validatePrice(price);
+        validateQuantity(quantity);
+        this.quantity = quantity;
+        this.name = name;
+        this.price = price;
+    }
+
+    private void validatePrice(final int price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException("상품의 금액은 0이나, 음수가 될 수 없습니다.");
+        }
+    }
+
+    private void validateQuantity(final int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("물품의 개수는 음수일 수 없습니다.");
+        }
+    }
+
+    public boolean hasSameName(final Product product) {
+        return name.equals(product.getName());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+}
