@@ -7,11 +7,13 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     testImplementation 'org.assertj:assertj-core:3.19.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+    implementation 'com.github.Joyykim:wooteco-utils:0.1.0'
 }
 
 test {
