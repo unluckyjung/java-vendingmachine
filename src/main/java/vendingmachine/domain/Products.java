@@ -12,21 +12,34 @@ public class Products {
     }
 
     public void add(final Product product) {
-        validateNameDuplication(product);
+        validateNameDuplication(product.getName());
         products.add(product);
     }
 
-    private void validateNameDuplication(final Product product) {
-        if (isExistName(product)) {
+    private void validateNameDuplication(final String productName) {
+        if (isExistName(productName)) {
             throw new IllegalArgumentException("이미 존재하는 상품명 입니다.");
         }
     }
 
-    private boolean isExistName(final Product product) {
-        return products.stream().anyMatch(product1 -> product1.hasSameName(product));
+    public void buy(final String productName, final ChangeModule changeModule) {
+        validateNameToBuy(productName);
+        for (Product product : products) {
+            if (product.hasSameName(productName)) {
+                changeModule.reduce(product.getPrice());
+                product.decrease();
+                break;
+            }
+        }
     }
 
-    public List<Product> toList() {
-        return products;
+    private void validateNameToBuy(final String productName) {
+        if (!isExistName(productName)) {
+            throw new IllegalArgumentException("존재하지 않는 상품명 입니다.");
+        }
+    }
+
+    private boolean isExistName(final String name) {
+        return products.stream().anyMatch(product -> product.hasSameName(name));
     }
 }

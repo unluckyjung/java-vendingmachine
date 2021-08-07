@@ -26,8 +26,13 @@ public class Product {
         }
     }
 
-    public boolean hasSameName(final Product product) {
-        return name.equals(product.getName());
+    public boolean hasSameName(final String name) {
+        return this.name.equals(name);
+    }
+
+    public void decrease() {
+        validateQuantity(quantity - 1);
+        quantity--;
     }
 
     public String getName() {

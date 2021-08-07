@@ -9,12 +9,13 @@ public class ChangeModule {
         this.change = money;
     }
 
-    public void reduce(final int amount) {
-        change = change.reduce(amount);
-    }
-
     public void increase(final Money money) {
         change = change.increase(money.getAmount());
         coins = new Coins(change);
     }
+
+    public void reduce(final int amount) {
+        change = change.reduce(amount);
+    }
+
 }
