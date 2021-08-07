@@ -8,6 +8,10 @@ public class ChangeModule {
     private Money change;
     private Coins coins;
 
+    public ChangeModule() {
+        this(new Money(0));
+    }
+
     public ChangeModule(final Money money) {
         this.change = money;
     }

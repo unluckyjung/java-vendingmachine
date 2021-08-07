@@ -6,14 +6,18 @@ public class Product {
     private int quantity;
     private final int price;
 
+    public Product(final String name, final String quantity, final String price) {
+        this(name, Integer.parseInt(quantity), Integer.parseInt(price));
+    }
+
     public Product(final String name, final int quantity, int price) {
-        validateProduct();
-        this.quantity = quantity;
+        validateProduct(name, quantity, price);
         this.name = name;
+        this.quantity = quantity;
         this.price = price;
     }
 
-    private void validateProduct() {
+    private void validateProduct(final String name, final int quantity, final int price) {
         validateName(name);
         validatePrice(price);
         validateQuantity(quantity);
