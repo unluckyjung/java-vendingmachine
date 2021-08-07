@@ -7,11 +7,22 @@ public class Product {
     private final int price;
 
     public Product(final String name, final int quantity, int price) {
-        validatePrice(price);
-        validateQuantity(quantity);
+        validateProduct();
         this.quantity = quantity;
         this.name = name;
         this.price = price;
+    }
+
+    private void validateProduct() {
+        validateName(name);
+        validatePrice(price);
+        validateQuantity(quantity);
+    }
+
+    private void validateName(final String name) {
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException("상품 이름은 공백일 수 없습니다.");
+        }
     }
 
     private void validatePrice(final int price) {
