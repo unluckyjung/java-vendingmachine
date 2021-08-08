@@ -28,11 +28,11 @@ public class Money {
         return this.amount >= amount;
     }
 
-    public boolean isZero() {
-        return amount == AMOUNT_LOW_LIMIT;
-    }
-
     public int getAmount() {
         return amount;
+    }
+
+    public boolean canMakeCoin() {
+        return amount >= CoinSet._10.getValue();
     }
 }

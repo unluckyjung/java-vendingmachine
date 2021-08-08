@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ChangeModule {
 
+    private Money amount;
     private Money change;
     private Coins coins;
 
@@ -13,15 +14,18 @@ public class ChangeModule {
     }
 
     public ChangeModule(final Money money) {
-        this.change = money;
+        this.amount = money;
+        this.change = new Money(0);
     }
 
     public void increase(final Money money) {
         change = change.increase(money.getAmount());
-        coins = new Coins(new Money(change.getAmount()));
+        this.amount = money.increase(money.getAmount());
+        coins = new Coins(new Money(this.amount.getAmount() + change.getAmount()));
     }
 
     public void reduce(final int amount) {
+        this.amount = this.amount.reduce(amount);
         change = change.reduce(amount);
     }
 
@@ -36,7 +40,7 @@ public class ChangeModule {
         return coinList;
     }
 
-    public int amount() {
+    public int changeAmount() {
         return change.getAmount();
     }
 }

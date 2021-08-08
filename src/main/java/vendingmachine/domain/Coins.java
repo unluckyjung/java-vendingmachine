@@ -15,7 +15,7 @@ public class Coins {
 
     private List<CoinSet> getRandomCoins(Money money) {
         List<CoinSet> coins = new ArrayList<>();
-        while (money.isZero()) {
+        while (money.canMakeCoin()) {
             int coinValue = Randoms.pick(CoinSet.getCoinValues());
             if (money.isCanReduce(coinValue)) {
                 coins.add(CoinSet.getCoin(coinValue));

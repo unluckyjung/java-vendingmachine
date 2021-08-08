@@ -44,7 +44,7 @@ public class Products {
     }
 
     public boolean isCanBuyAnything(final ChangeModule changeModule) {
-        return changeModule.amount() >= cheapestProductPrice();
+        return changeModule.changeAmount() >= cheapestProductPrice();
     }
 
     private int cheapestProductPrice() {
