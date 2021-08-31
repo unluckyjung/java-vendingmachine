@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,5 +30,26 @@ class StorageTest {
         final Map<Product, Integer> products = storage.getProducts();
         assertThat(products).containsEntry(new Product("콜라", 1500), 20);
         assertThat(products).containsEntry(new Product("사이다", 1000), 10);
+    }
+
+    @Test
+    void pop() {
+        final Product expected = new Product("콜라", 1500);
+        final Storage storage = new Storage(new HashMap<Product, Integer>() {{
+            put(expected, 20);
+        }});
+        final Product actual = storage.pop("콜라");
+        assertThat(actual).isSameAs(expected);
+        assertThat(storage.getProducts()).containsEntry(expected, 19);
+    }
+
+    @Test
+    void pop_empty() {
+        final Product expected = new Product("콜라", 1500);
+        final Storage storage = new Storage(new HashMap<Product, Integer>() {{
+            put(expected, 0);
+        }});
+        assertThatThrownBy(() -> storage.pop("콜라"))
+            .isInstanceOf(IllegalArgumentException.class);
     }
 }

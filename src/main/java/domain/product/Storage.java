@@ -6,8 +6,22 @@ import java.util.Map;
 public class Storage {
     private final Map<Product, Integer> products;
 
-    private Storage(final Map<Product, Integer> products) {
+    public Storage(final Map<Product, Integer> products) {
         this.products = new HashMap<>(products);
+    }
+
+    public Product pop(final String name) {
+        final Product product = products.keySet().stream()
+            .filter(it -> it.getName().equals(name))
+            .findAny()
+            .orElseThrow(() -> new IllegalArgumentException(String.format("존재하지 않는 상품입니다. name:%s", name)));
+        products.computeIfPresent(product, (key, value) -> {
+            if (value == 0) {
+                throw new IllegalArgumentException("");
+            }
+            return value - 1;
+        });
+        return product;
     }
 
     public Map<Product, Integer> getProducts() {
