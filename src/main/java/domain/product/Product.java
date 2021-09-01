@@ -3,12 +3,22 @@ package domain.product;
 import java.util.Objects;
 
 public class Product {
+    private static final int MINIMUM_PRICE = 100;
+    private static final int DIVIDED_PRICE = 10;
+
     private final String name;
     private final int price;
 
     public Product(final String name, final int price) {
+        validate(price);
         this.name = name;
         this.price = price;
+    }
+
+    private void validate(final int price) {
+        if (price < MINIMUM_PRICE || price % DIVIDED_PRICE != 0) {
+            throw new IllegalArgumentException(String.format("상품의 최소 금액은 100원이며, 10원으로 나누어 떨어져야 합니다. price:%d", price));
+        }
     }
 
     public String getName() {
