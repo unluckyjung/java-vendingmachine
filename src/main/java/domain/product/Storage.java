@@ -3,8 +3,11 @@ package domain.product;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.regex.Pattern;
 
 public class Storage {
+    private static final Pattern PRODUCT_PATTERN = Pattern.compile("^\\[[\\wㄱ-ㅎㅏ-ㅣ가-힣]+,\\d+,\\d+\\]$");
+
     private final Map<Product, Integer> products;
 
     public Storage(final Map<Product, Integer> products) {
@@ -65,20 +68,10 @@ public class Storage {
     }
 
     private static String[] parse(final String token) {
-        if (!token.startsWith("[") || !token.endsWith("]")) {
+        if (!PRODUCT_PATTERN.matcher(token).matches()) {
             throw new IllegalArgumentException(String.format("형식이 잘못되었습니다. text:%s", token));
         }
         final String productText = token.substring(1, token.length() - 1);
-        final String[] properties = productText.split(",");
-        if (properties.length != 3) {
-            throw new IllegalArgumentException(String.format("형식이 잘못되었습니다. text:%s", token));
-        }
-        try {
-            Integer.parseInt(properties[1]);
-            Integer.parseInt(properties[2]);
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException(String.format("형식이 잘못되었습니다. text:%s", token));
-        }
-        return properties;
+        return productText.split(",");
     }
 }
