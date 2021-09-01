@@ -7,7 +7,18 @@ public class Storage {
     private final Map<Product, Integer> products;
 
     public Storage(final Map<Product, Integer> products) {
+        if (duplicated(products)) {
+            throw new IllegalArgumentException(String.format("중복 상품을 입력할 수 없습니다."));
+        }
         this.products = new HashMap<>(products);
+    }
+
+    private boolean duplicated(final Map<Product, Integer> products) {
+        final long unique = products.keySet().stream()
+            .map(it -> it.getName())
+            .distinct()
+            .count();
+        return products.size() != unique;
     }
 
     public Product pop(final String name) {
@@ -45,7 +56,7 @@ public class Storage {
             int price;
             try {
                 quantity = Integer.parseInt(properties[1]);
-                price = Integer.parseInt(properties[1]);
+                price = Integer.parseInt(properties[2]);
             } catch (final NumberFormatException e) {
                 throw new IllegalArgumentException(String.format("형식이 잘못되었습니다. text:%s", text));
             }

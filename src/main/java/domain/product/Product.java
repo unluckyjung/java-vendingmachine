@@ -24,12 +24,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Product product = (Product) o;
-        return Objects.equals(name, product.name);
+        return price == product.price && Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, price);
     }
 
     @Override

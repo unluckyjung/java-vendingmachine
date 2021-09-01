@@ -18,9 +18,10 @@ class StorageTest {
             .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    void from_duplicated() {
-        assertThatThrownBy(() -> Storage.from("[콜라,20,1500];[콜라,20,1000]"))
+    @ValueSource(strings = {"[콜라,20,1500];[콜라,10,1500]", "[콜라,20,1500];[콜라,10,1000]"})
+    @ParameterizedTest
+    void from_duplicated(final String text) {
+        assertThatThrownBy(() -> Storage.from(text))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
