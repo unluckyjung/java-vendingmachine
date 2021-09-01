@@ -48,6 +48,14 @@ public class Storage {
         };
     }
 
+    public int minimumPrice() {
+        // 상품 최소 금액의 기준
+        return products.keySet().stream()
+            .map(Product::getPrice)
+            .min(Integer::compareTo)
+            .orElse(0);
+    }
+
     public Map<Product, Integer> getProducts() {
         return new HashMap<>(products);
     }

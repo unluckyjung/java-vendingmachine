@@ -53,4 +53,14 @@ class StorageTest {
         assertThatThrownBy(() -> storage.pop("콜라"))
             .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void minimumPrice() {
+        final Storage storage = new Storage(new HashMap<Product, Integer>() {{
+            put(new Product("콜라", 1500), 0);
+            put(new Product("사이다", 1000), 10);
+        }});
+        final int price = storage.minimumPrice();
+        assertThat(price).isEqualTo(1000);
+    }
 }
