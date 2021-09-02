@@ -12,8 +12,15 @@ public class Wallet {
 
     private void validate(final int amount) {
         if (amount < MINIMUM_PRICE) {
-            throw new IllegalArgumentException(String.format("0원 이상 입력해야 합니다. amount:%d", amount));
+            throw new IllegalArgumentException(String.format("금액은 0원 미만일 수 없습니다. amount:%d", amount));
         }
+    }
+
+    public void deduct(final int amount) {
+        if (this.amount - amount < MINIMUM_PRICE) {
+            throw new IllegalArgumentException(String.format("금액은 0원 미만일 수 없습니다. amount:%d", amount));
+        }
+        this.amount -= amount;
     }
 
     public int getAmount() {
