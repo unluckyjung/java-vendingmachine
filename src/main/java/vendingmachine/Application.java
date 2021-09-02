@@ -16,7 +16,7 @@ public class Application {
             wallet.deduct(storage.pop(Console.askProduct()).getPrice());
         }
         final CoinSet changes = coinSet.changes(wallet.getAmount());
-        wallet.deduct(coinSet.sum());
+        wallet.deduct(changes.sum());
         Console.printBalance(wallet.getAmount());
         Console.printChanges(changes.getCoins());
     }
