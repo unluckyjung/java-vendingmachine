@@ -21,10 +21,7 @@ public class Application {
             wallet.deduct(storage.pop(Console.askProduct()).getPrice());
         }
         final List<Coin> changes = coinSet.changes(wallet.getAmount());
-        final int sum = changes.stream()
-            .mapToInt(it -> it.getAmount())
-            .sum();
-        wallet.deduct(sum);
+        wallet.deduct(coinSet.sum());
         Console.printBalance(wallet.getAmount());
         Console.printChanges(changes.stream()
             .collect(Collectors.groupingBy(Function.identity(), Collectors.reducing(0, e -> 1, Integer::sum))));

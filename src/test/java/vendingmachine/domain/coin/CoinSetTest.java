@@ -38,4 +38,11 @@ class CoinSetTest {
             .sum();
         assertThat(sum).isEqualTo(160);
     }
+
+    @Test
+    void sum() {
+        final CoinSet coinSet = new CoinSet(Arrays.asList(Coin.COIN_500, Coin.COIN_100, Coin.COIN_50, Coin.COIN_10));
+        final int sum = coinSet.sum();
+        assertThat(sum).isEqualTo(660);
+    }
 }

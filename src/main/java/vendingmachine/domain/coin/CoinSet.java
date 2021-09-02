@@ -61,6 +61,12 @@ public class CoinSet {
         return need;
     }
 
+    public int sum() {
+        return getCoins().stream()
+            .mapToInt(Coin::getAmount)
+            .sum();
+    }
+
     public List<Coin> getCoins() {
         return coins.entrySet().stream()
             .flatMap(it -> Collections.nCopies(it.getValue(), it.getKey()).stream())
