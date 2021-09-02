@@ -1,4 +1,4 @@
-package utils;
+package vendingmachine.utils;
 
 import java.util.List;
 

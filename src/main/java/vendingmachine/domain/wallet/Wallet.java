@@ -1,4 +1,4 @@
-package domain.wallet;
+package vendingmachine.domain.wallet;
 
 public class Wallet {
     private static final int MINIMUM_PRICE = 0;

@@ -1,4 +1,4 @@
-package domain.product;
+package vendingmachine.domain.product;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

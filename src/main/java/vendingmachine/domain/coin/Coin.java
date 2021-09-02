@@ -1,4 +1,4 @@
-package domain.coin;
+package vendingmachine.domain.coin;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package domain.product;
+package vendingmachine.domain.product;
 
 import java.util.Objects;
 
