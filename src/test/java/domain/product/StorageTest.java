@@ -63,4 +63,24 @@ class StorageTest {
         final int price = storage.minimumPrice();
         assertThat(price).isEqualTo(1000);
     }
+
+    @Test
+    void empty() {
+        final Storage storage = new Storage(new HashMap<Product, Integer>() {{
+            put(new Product("콜라", 1500), 0);
+            put(new Product("사이다", 1000), 0);
+        }});
+        final boolean empty = storage.empty();
+        assertThat(empty).isTrue();
+    }
+
+    @Test
+    void not_empty() {
+        final Storage storage = new Storage(new HashMap<Product, Integer>() {{
+            put(new Product("콜라", 1500), 1);
+            put(new Product("사이다", 1000), 0);
+        }});
+        final boolean empty = storage.empty();
+        assertThat(empty).isFalse();
+    }
 }

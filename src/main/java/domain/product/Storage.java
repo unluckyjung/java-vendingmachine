@@ -56,6 +56,11 @@ public class Storage {
             .orElse(0);
     }
 
+    public boolean empty() {
+        return products.values().stream()
+            .allMatch(it -> it == 0);
+    }
+
     public Map<Product, Integer> getProducts() {
         return new HashMap<>(products);
     }
