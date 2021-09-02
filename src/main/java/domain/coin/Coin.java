@@ -1,6 +1,7 @@
 package domain.coin;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,12 @@ public enum Coin {
     public static List<Integer> amounts() {
         return Arrays.stream(values())
             .map(Coin::getAmount)
+            .collect(Collectors.toList());
+    }
+
+    public static List<Coin> highestAmount() {
+        return Arrays.stream(values())
+            .sorted(Comparator.comparingInt(Coin::getAmount).reversed())
             .collect(Collectors.toList());
     }
 
