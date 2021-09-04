@@ -5,12 +5,10 @@ import vendingmachine.domain.product.Storage;
 import vendingmachine.domain.wallet.Wallet;
 import vendingmachine.view.Console;
 
-import java.util.Scanner;
-
 public class Application {
+
     public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
-        final Console console = new Console(scanner);
+        final Console console = new Console();
 
         final CoinSet coinSet = CoinSet.from(console.askVendingMachineAmount());
         final Storage storage = Storage.from(console.askProducts());
