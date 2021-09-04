@@ -5,20 +5,25 @@ import vendingmachine.domain.product.Storage;
 import vendingmachine.domain.wallet.Wallet;
 import vendingmachine.view.Console;
 
+import java.util.Scanner;
+
 public class Application {
     public static void main(String[] args) {
-        final CoinSet coinSet = CoinSet.from(Console.askVendingMachineAmount());
-        final Storage storage = Storage.from(Console.askProducts());
-        final Wallet wallet = new Wallet(Console.askAmount());
+        final Scanner scanner = new Scanner(System.in);
+        final Console console = new Console(scanner);
+
+        final CoinSet coinSet = CoinSet.from(console.askVendingMachineAmount());
+        final Storage storage = Storage.from(console.askProducts());
+        final Wallet wallet = new Wallet(console.askAmount());
 
         while (canBuy(storage, wallet)) {
-            Console.printBalance(wallet.getAmount());
-            wallet.deduct(storage.pop(Console.askProduct()).getPrice());
+            console.printBalance(wallet.getAmount());
+            wallet.deduct(storage.pop(console.askProduct()).getPrice());
         }
         final CoinSet changes = coinSet.changes(wallet.getAmount());
         wallet.deduct(changes.sum());
-        Console.printBalance(wallet.getAmount());
-        Console.printChanges(changes.getCoins());
+        console.printBalance(wallet.getAmount());
+        console.printChanges(changes.getCoins());
     }
 
     private static boolean canBuy(final Storage storage, final Wallet wallet) {
