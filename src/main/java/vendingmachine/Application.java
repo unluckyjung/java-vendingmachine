@@ -3,25 +3,25 @@ package vendingmachine;
 import vendingmachine.domain.coin.CoinSet;
 import vendingmachine.domain.product.Storage;
 import vendingmachine.domain.wallet.Wallet;
-import vendingmachine.view.Console;
+import vendingmachine.view.View;
 
 public class Application {
 
     public static void main(String[] args) {
-        final Console console = new Console();
+        final View view = new View();
 
-        final CoinSet coinSet = CoinSet.from(console.askVendingMachineAmount());
-        final Storage storage = Storage.from(console.askProducts());
-        final Wallet wallet = new Wallet(console.askAmount());
+        final CoinSet coinSet = CoinSet.from(view.askVendingMachineAmount());
+        final Storage storage = Storage.from(view.askProducts());
+        final Wallet wallet = new Wallet(view.askAmount());
 
         while (canBuy(storage, wallet)) {
-            console.printBalance(wallet.getAmount());
-            wallet.deduct(storage.pop(console.askProduct()).getPrice());
+            view.printBalance(wallet.getAmount());
+            wallet.deduct(storage.pop(view.askProduct()).getPrice());
         }
         final CoinSet changes = coinSet.changes(wallet.getAmount());
         wallet.deduct(changes.sum());
-        console.printBalance(wallet.getAmount());
-        console.printChanges(changes.getCoins());
+        view.printBalance(wallet.getAmount());
+        view.printChanges(changes.getCoins());
     }
 
     private static boolean canBuy(final Storage storage, final Wallet wallet) {

@@ -12,7 +12,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.time.Duration;
-import java.util.InputMismatchException;
 import org.assertj.core.util.Strings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -69,7 +68,7 @@ public class ApplicationTest {
         void invalidMachineMoneyTest2(final String vendingMachineMoney) {
             assertSimpleTest(() -> assertThatThrownBy(() -> subject(
                 vendingMachineMoney
-            )).isExactlyInstanceOf(InputMismatchException.class));
+            )).isInstanceOf(Exception.class));
         }
     }
 
@@ -179,7 +178,7 @@ public class ApplicationTest {
                 vendingMachineMoney,
                 productInfos,
                 inputMoney
-            )).isInstanceOf(InputMismatchException.class));
+            )).isInstanceOf(Exception.class));
         }
     }
 
@@ -236,7 +235,7 @@ public class ApplicationTest {
             String[] arguments = {"450", "[콜라,1,1500];[사이다,1,1000]", "3000", "콜라", "사이다"};
 
             try (MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
-                mock.when(() -> Randoms.pick(anyList())).thenReturn(100, 100, 100, 100, 50);
+                mock.when(() -> Randoms.pickNumberInList(anyList())).thenReturn(100, 100, 100, 100, 50);
                 subject(
                     arguments
                 );
@@ -254,7 +253,7 @@ public class ApplicationTest {
             String[] arguments = {"950", "[콜라,1,1500]", "3000", "콜라"};
 
             try (MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
-                mock.when(() -> Randoms.pick(anyList())).thenReturn(500, 100, 100, 100, 100, 50);
+                mock.when(() -> Randoms.pickNumberInList(anyList())).thenReturn(500, 100, 100, 100, 100, 50);
                 subject(
                     arguments
                 );
@@ -274,7 +273,7 @@ public class ApplicationTest {
             String[] arguments = {"950", "[콜라,0,1500]", "1000"};
 
             try (MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
-                mock.when(() -> Randoms.pick(anyList())).thenReturn(500, 100, 100, 100, 100, 50);
+                mock.when(() -> Randoms.pickNumberInList(anyList())).thenReturn(500, 100, 100, 100, 100, 50);
                 subject(
                     arguments
                 );
@@ -293,7 +292,7 @@ public class ApplicationTest {
             String[] arguments = {"1600", "[콜라,0,1500]", "1000"};
 
             try (MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
-                mock.when(() -> Randoms.pick(anyList())).thenReturn(100, 100, 500, 500, 100, 100, 100, 50, 50);
+                mock.when(() -> Randoms.pickNumberInList(anyList())).thenReturn(100, 100, 500, 500, 100, 100, 100, 50, 50);
                 subject(
                     arguments
                 );
@@ -310,7 +309,7 @@ public class ApplicationTest {
             String[] arguments = {"1100", "[콜라,0,1500]", "50"};
 
             try (MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
-                mock.when(() -> Randoms.pick(anyList())).thenReturn(500, 500, 100);
+                mock.when(() -> Randoms.pickNumberInList(anyList())).thenReturn(500, 500, 100);
                 subject(
                     arguments
                 );
@@ -336,7 +335,7 @@ public class ApplicationTest {
         String[] arguments = {"1600", "[콜라,1,1500]", "100000", "콜라"};
 
         try (MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
-            mock.when(() -> Randoms.pick(anyList())).thenReturn(500, 500, 100, 100, 100, 100, 100, 50, 50);
+            mock.when(() -> Randoms.pickNumberInList(anyList())).thenReturn(500, 500, 100, 100, 100, 100, 100, 50, 50);
             subject(
                 arguments
             );

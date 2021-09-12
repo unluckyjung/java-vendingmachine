@@ -1,30 +1,35 @@
 package vendingmachine.view;
 
-import com.woowahan.techcourse.utils.Scanners;
+import com.woowahan.techcourse.utils.Console;
 import java.util.Map;
 import java.util.stream.Collectors;
 import vendingmachine.domain.coin.Coin;
 
-public class Console {
+public class View {
+
+    private int getInt(final String readLine) {
+        return Integer.parseInt(readLine);
+    }
+
 
     public int askVendingMachineAmount() {
         System.out.println("자판기가 보유하고 있는 금액을 입력해 주세요.");
-        return Scanners.nextInt();
+        return getInt(Console.readLine());
     }
 
     public String askProducts() {
         System.out.println("\n상품명과 수량, 금액을 입력해 주세요.");
-        return Scanners.next();
+        return Console.readLine();
     }
 
     public int askAmount() {
         System.out.println("\n투입 금액을 입력해 주세요.");
-        return Scanners.nextInt();
+        return getInt(Console.readLine());
     }
 
     public String askProduct() {
         System.out.println("구매할 상품명을 입력해 주세요.");
-        return Scanners.next();
+        return Console.readLine();
     }
 
     public void printBalance(final int balance) {

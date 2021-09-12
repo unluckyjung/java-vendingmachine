@@ -32,7 +32,7 @@ public class CoinSet {
         final List<Coin> coins = new ArrayList<>();
         final List<Integer> amounts = Coin.amounts();
         while (total > 0) {
-            final int amount = Randoms.pick(amounts);
+            final int amount = Randoms.pickNumberInList(amounts);
             if (total - amount >= 0) {
                 total -= amount;
                 coins.add(Coin.from(amount));
